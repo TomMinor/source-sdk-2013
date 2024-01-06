@@ -26,8 +26,10 @@ ipch
 *.rad
 *.inc
 sp/src/thirdparty
-sp/src/utils/api51
-sp/src/materialsystem/stdshaders/inclist
+sp/src/utils/sapi51
+sp/src/utils/qc_eyes/Debug
+sp/src/utils/qc_eyes/Release
+sp/src/materialsystem/stdshaders/inclist.txt
 sp/src/materialsystem/stdshaders/filestocopy.txt
 sp/src/materialsystem/stdshaders/makefile*
 sp/src/materialsystem/stdshaders/uniquefilestocopy.txt
