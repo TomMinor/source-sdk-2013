@@ -11,6 +11,7 @@ $MacroRequired				"OUTBINNAME"	"$PROJECTNAME"
 $MacroRequired				"OUTBINDIR"
 		
 $Macro OUTBINDIR	"$OUTBINDIR$PLATSUBDIR"
+$Macro GAMEBINDIR	"C:\Program Files (x86)\Steam\steamapps\sourcemods\playground\bin"
 $Macro LIBPUBLIC	"$SRCDIR\lib\public$PLATSUBDIR"
 $Macro LIBCOMMON	"$SRCDIR\lib\common$PLATSUBDIR"
 
@@ -55,7 +56,7 @@ $Configuration
 	
 	$PreBuildEvent
 	{
-		$CommandLine		"if EXIST $OUTBINDIR\$(TargetFileName) for /f $QUOTEdelims=$QUOTE %%A in ('attrib $QUOTE$OUTBINDIR\$(TargetFileName)$QUOTE') do set valveTmpIsReadOnly=$QUOTE%%A$QUOTE" "\n" \
+		$CommandLine		"if EXIST $GAMEBINDIR\$(TargetFileName) for /f $QUOTEdelims=$QUOTE %%A in ('attrib $QUOTE$GAMEBINDIR\$(TargetFileName)$QUOTE') do set valveTmpIsReadOnly=$QUOTE%%A$QUOTE" "\n" \
 							"set valveTmpIsReadOnlyLetter=%valveTmpIsReadOnly:~6,1%" "\n" \
 							"if $QUOTE%valveTmpIsReadOnlyLetter%$QUOTE==$QUOTER$QUOTE del /q $QUOTE$(TargetDir)$QUOTE$(TargetFileName)" "\n" \
 							"$CRCCHECK" "\n"
@@ -63,13 +64,13 @@ $Configuration
 
 	$PostBuildEvent [!$ANALYZE]
 	{
-		$CommandLine		"if not exist $QUOTE$OUTBINDIR$QUOTE mkdir $QUOTE$OUTBINDIR$QUOTE" "\n" 
-		$CommandLine		"$BASE" "call $SRCDIR\vpc_scripts\valve_p4_edit.cmd $QUOTE$OUTBINDIR\$(TargetFileName)$QUOTE $SRCDIR" "\n" [!$SOURCESDK]
-		$CommandLine		"$BASE" "copy $QUOTE$(TargetDir)$(TargetFileName)$QUOTE $QUOTE$OUTBINDIR\$(TargetFileName)$QUOTE" "\n" \
+		$CommandLine		"if not exist $QUOTE$GAMEBINDIR$QUOTE mkdir $QUOTE$GAMEBINDIR$QUOTE" "\n" 
+		$CommandLine		"$BASE" "call $SRCDIR\vpc_scripts\valve_p4_edit.cmd $QUOTE$GAMEBINDIR\$(TargetFileName)$QUOTE $SRCDIR" "\n" [!$SOURCESDK]
+		$CommandLine		"$BASE" "copy $QUOTE$(TargetDir)$(TargetFileName)$QUOTE $QUOTE$GAMEBINDIR\$(TargetFileName)$QUOTE" "\n" \
 							"if ERRORLEVEL 1 goto BuildEventFailed" "\n" \
-							"if exist $QUOTE$(TargetDir)$(TargetName).map$QUOTE copy $QUOTE$(TargetDir)$(TargetName).map$QUOTE $OUTBINDIR\$(TargetName).map" "\n" 
-		$CommandLine		"$BASE" "call $SRCDIR\vpc_scripts\valve_p4_edit.cmd $QUOTE$OUTBINDIR\$(TargetName).pdb$QUOTE $SRCDIR" "\n"  [!$SOURCESDK] 
-		$CommandLine		"$BASE" "copy $QUOTE$(TargetDir)$(TargetName).pdb$QUOTE $OUTBINDIR\$(TargetName).pdb" "\n" \
+	  						"if exist $QUOTE$(TargetDir)$(TargetName).map$QUOTE copy $QUOTE$(TargetDir)$(TargetName).map$QUOTE $GAMEBINDIR\$(TargetName).map" "\n" 
+		$CommandLine		"$BASE" "call $SRCDIR\vpc_scripts\valve_p4_edit.cmd $QUOTE$GAMEBINDIR\$(TargetName).pdb$QUOTE $SRCDIR" "\n"  [!$SOURCESDK] 
+		$CommandLine		"$BASE" "copy $QUOTE$(TargetDir)$(TargetName).pdb$QUOTE $QUOTE$GAMEBINDIR\$(TargetName).pdb$QUOTE" "\n" \
 							"if ERRORLEVEL 1 goto BuildEventFailed" "\n" \
 							"goto BuildEventOK" "\n" \
 							":BuildEventFailed" "\n" \
@@ -79,12 +80,12 @@ $Configuration
 							":BuildEventOK" "\n" 
 
 		$CommandLine		"$BASE" "\n" \
-							"call $SRCDIR\devtools\bin\vsign.bat -sign $OUTBINDIR\$(TargetFileName)" "\n" [$RETAIL && $PUBLISH]
+							"call $SRCDIR\devtools\bin\vsign.bat -sign $GAMEBINDIR\$(TargetFileName)" "\n" [$RETAIL && $PUBLISH]
 
 		$CommandLine		"$BASE" "\n" \
 							"call $SRCDIR\devtools\bin\vsign.bat -signvalve $OUTBINDIR\$(TargetFileName)" "\n" [!$RETAIL && !$PUBLISH && !$SOURCESDK]
 
-		$Description		"Publishing to $OUTBINDIR"
+		$Description		"Publishing to $GAMEBINDIR"
 		$ExcludedFromBuild	"No"
 	}
 }

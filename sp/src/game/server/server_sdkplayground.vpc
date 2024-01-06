@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 
 $Macro SRCDIR		"..\.."
-$Macro GAMENAME 	"hl2" [!$SOURCESDK]
-$Macro GAMENAME 	"mod_hl2" [$SOURCESDK]
+$Macro GAMENAME 	"sdkplayground" [!$SOURCESDK]
+$Macro GAMENAME 	"mod_sdkplayground" [$SOURCESDK]
 
 $Include "$SRCDIR\game\server\server_base.vpc"
 
@@ -19,7 +19,7 @@ $Configuration
 	}
 }
 
-$Project "Server (HL2)"
+$Project "Server (SDK Playground)"
 {
 	$Folder	"Source Files"
 	{
@@ -49,6 +49,13 @@ $Project "Server (HL2)"
 		$File	"vehicle_choreo_generic.cpp"
 		$File	"$SRCDIR\game\shared\vehicle_choreo_generic_shared.h"
 		$File	"$SRCDIR\game\shared\weapon_parse_default.cpp"
+
+		$Folder	"SDK"
+		{
+			$File	"$SRCDIR\game\server\sdk\sdk_logicalentity.cpp"
+			$File	"$SRCDIR\game\server\sdk\sdk_modelentity.cpp"
+			$File	"$SRCDIR\game\server\sdk\sdk_brushentity.cpp"
+		}
 
 		$Folder	"HL2 DLL"
 		{

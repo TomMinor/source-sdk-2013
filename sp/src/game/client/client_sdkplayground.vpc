@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------
 
 $Macro SRCDIR		"..\.."
-$Macro GAMENAME 	"hl2" [!$SOURCESDK]
-$Macro GAMENAME 	"mod_hl2" [$SOURCESDK]
+$Macro GAMENAME 	"sdkplayground" [!$SOURCESDK]
+$Macro GAMENAME 	"mod_sdkplayground" [$SOURCESDK]
 
 $Include "$SRCDIR\game\client\client_base.vpc"
 $Include "$SRCDIR\game\protobuf_include.vpc"
@@ -20,7 +20,7 @@ $Configuration
 	}
 }
 
-$Project "Client (HL2)"
+$Project "Client (SDK Playground)"
 {
 	$Folder	"Source Files"
 	{
