@@ -86,6 +86,8 @@ public:
 		return true;
 	}
 
+	void CalcIronsights( Vector &pos, QAngle &ang );
+
 	Vector					m_vecLastFacing;
 
 	// Only support prediction in TF2 for now

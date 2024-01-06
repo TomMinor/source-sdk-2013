@@ -460,5 +460,25 @@ void FileWeaponInfo_t::Parse( KeyValues *pKeyValuesData, const char *szWeaponNam
 			}
 		}
 	}
+
+	KeyValues* pSights = pKeyValuesData->FindKey("IronSight");
+	if (pSights)
+	{
+		ironsightPosOffset.x		= pSights->GetFloat( "forward", 0.0f );
+		ironsightPosOffset.y		= pSights->GetFloat( "right", 0.0f );
+		ironsightPosOffset.z		= pSights->GetFloat( "up", 0.0f );
+
+		ironsightAngOffset[PITCH]	= pSights->GetFloat( "pitch", 0.0f );
+		ironsightAngOffset[YAW]		= pSights->GetFloat( "yaw", 0.0f );
+		ironsightAngOffset[ROLL]	= pSights->GetFloat( "roll", 0.0f );
+
+		ironsightFOVOffset		= pSights->GetFloat( "fov", 0.0f );
+	}
+	else
+	{
+		ironsightPosOffset = vec3_origin;
+		ironsightAngOffset.Init();
+		ironsightFOVOffset = 0.0f;
+	}
 }
 

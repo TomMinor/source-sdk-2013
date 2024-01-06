@@ -125,6 +125,10 @@ public:
 	CHudTexture 					*iconZoomedAutoaim;
 	CHudTexture						*iconSmall;
 
+	Vector			ironsightPosOffset;
+	QAngle			ironsightAngOffset;
+	float			ironsightFOVOffset;
+
 // TF2 specific
 	bool					bShowUsageHint;							// if true, then when you receive the weapon, show a hint about it
 

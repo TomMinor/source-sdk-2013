@@ -319,6 +319,8 @@ bool CWeaponShotgun::StartReload( void )
 //-----------------------------------------------------------------------------
 bool CWeaponShotgun::Reload( void )
 {
+	DisableIronsights();
+
 	// Check that StartReload was called first
 	if (!m_bInReload)
 	{
