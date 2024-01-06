@@ -27,7 +27,7 @@ private:
 	COutputEvent	m_OnThreshold;	// Output even when the counter reaches the threshold
 };
 
-LINK_ENTITY_TO_CLASS( my_logical_entity, CMyLogicalEntity  );
+LINK_ENTITY_TO_CLASS( sdk_logical_entity, CMyLogicalEntity  );
 
 // Start of our data description for the class
 BEGIN_DATADESC( CMyLogicalEntity  )
@@ -54,11 +54,15 @@ void CMyLogicalEntity ::InputTick( inputdata_t &inputData )
 	// Increment our counter
 	m_nCounter++;
 
+	DevMsg("CMyLogicalEntity::InputTick\n");
+
 	// See if we've met or crossed our threshold value
 	if ( m_nCounter >= m_nThreshold )
 	{
 		// Fire an output event
-		m_OnThreshold.FireOutput( inputData.pActivator, this );
+		m_OnThreshold.FireOutput(inputData.pActivator, this);
+
+		DevMsg("CMyLogicalEntity Threshold Hit\n");
 		
 		// Reset our counter
 		m_nCounter = 0;

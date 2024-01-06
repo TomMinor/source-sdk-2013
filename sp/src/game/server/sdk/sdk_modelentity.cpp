@@ -27,7 +27,7 @@ private:
 	float	m_flNextChangeTime;
 };
 
-LINK_ENTITY_TO_CLASS( my_model_entity, CMyModelEntity );
+LINK_ENTITY_TO_CLASS( sdk_model_entity, CMyModelEntity );
 
 // Start of our data description for the class
 BEGIN_DATADESC( CMyModelEntity )
@@ -45,7 +45,7 @@ BEGIN_DATADESC( CMyModelEntity )
 END_DATADESC()
 
 // Name of our entity's model
-#define	ENTITY_MODEL	"models/gibs/airboat_broken_engine.mdl"
+#define	ENTITY_MODEL	"models/combine_scanner.mdl"
 
 //-----------------------------------------------------------------------------
 // Purpose: Precache assets used by the entity
@@ -61,10 +61,16 @@ void CMyModelEntity::Precache( void )
 void CMyModelEntity::Spawn( void )
 {
 	Precache();
+	
+	//m_takedamage = DAMAGE_YES;
 
 	SetModel( ENTITY_MODEL );
 	SetSolid( SOLID_BBOX );
 	UTIL_SetSize( this, -Vector(20,20,20), Vector(20,20,20) );
+
+	SetSequence(LookupSequence("idle"));
+	SetPlaybackRate(1.0f);
+	UseClientSideAnimation();
 
 	m_bActive = false;
 }
@@ -78,15 +84,14 @@ void CMyModelEntity::MoveThink( void )
 	if ( m_flNextChangeTime < gpGlobals->curtime )
 	{
 		// Randomly take a new direction and speed
-		Vector vecNewVelocity = RandomVector( -64.0f, 64.0f );
-		SetAbsVelocity( vecNewVelocity );
+		SetAbsVelocity(RandomVector( -64.0f, 64.0f ));
 
 		// Randomly change it again within one to three seconds
 		m_flNextChangeTime = gpGlobals->curtime + random->RandomFloat( 1.0f, 3.0f );
 	}
 
 	// Snap our facing to where we're heading
-	Vector velFacing = GetAbsVelocity();
+	const Vector velFacing = GetAbsVelocity();
 	QAngle angFacing;
 	VectorAngles( velFacing, angFacing );
 	SetAbsAngles( angFacing );

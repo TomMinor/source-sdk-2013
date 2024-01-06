@@ -18,7 +18,7 @@ public:
 	void BrushTouch( CBaseEntity *pOther );
 };
 
-LINK_ENTITY_TO_CLASS( my_brush_entity, CMyBrushEntity );
+LINK_ENTITY_TO_CLASS( sdk_brush_entity, CMyBrushEntity );
 
 // Start of our data description for the class
 BEGIN_DATADESC( CMyBrushEntity )
